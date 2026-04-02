@@ -10,7 +10,8 @@ import { isReactComponent } from "@/utils/is-react-component";
 export const styles = sortCx({
     common: {
         root: [
-            "group relative inline-flex h-max cursor-pointer items-center justify-center whitespace-nowrap outline-brand transition duration-100 ease-linear before:absolute focus-visible:outline-2 focus-visible:outline-offset-2",
+            "group relative inline-flex h-max cursor-pointer items-center justify-center whitespace-nowrap transition duration-100 ease-linear before:absolute font-['Regola_Pro',sans-serif] font-medium text-sm leading-5",
+            "focus-visible:ring-2 focus-visible:ring-[var(--color-button-focus-ring)] focus-visible:ring-offset-2 focus-visible:outline-none",
             // When button is used within `InputGroup`
             "in-data-input-wrapper:shadow-xs in-data-input-wrapper:focus:!z-50 in-data-input-wrapper:in-data-leading:-mr-px in-data-input-wrapper:in-data-leading:rounded-r-none in-data-input-wrapper:in-data-leading:before:rounded-r-none in-data-input-wrapper:in-data-trailing:-ml-px in-data-input-wrapper:in-data-trailing:rounded-l-none in-data-input-wrapper:in-data-trailing:before:rounded-l-none",
             // Disabled styles
@@ -23,7 +24,7 @@ export const styles = sortCx({
     sizes: {
         xs: {
             root: [
-                "gap-1 rounded-lg px-2.5 py-1.5 text-sm font-semibold before:rounded-[7px] data-icon-only:p-2",
+                "h-8 gap-1 rounded-[12px] px-2.5 py-1.5 text-sm before:rounded-[11px] data-icon-only:w-8 data-icon-only:p-0",
                 "in-data-input-wrapper:px-3.5 in-data-input-wrapper:py-2.5 in-data-input-wrapper:data-icon-only:p-2.5",
                 "*:data-icon:size-4 *:data-icon:stroke-[2.25px]",
             ].join(" "),
@@ -31,24 +32,24 @@ export const styles = sortCx({
         },
         sm: {
             root: [
-                "gap-1 rounded-lg px-3 py-2 text-sm font-semibold before:rounded-[7px] data-icon-only:p-2",
+                "h-9 gap-1 rounded-[12px] px-3 py-2 text-sm before:rounded-[11px] data-icon-only:w-9 data-icon-only:p-0",
                 "in-data-input-wrapper:px-3.5 in-data-input-wrapper:py-2.5 in-data-input-wrapper:data-icon-only:p-2.5",
             ].join(" "),
             linkRoot: "gap-1 *:data-text:underline-offset-3",
         },
         md: {
             root: [
-                "gap-1 rounded-lg px-3.5 py-2.5 text-sm font-semibold before:rounded-[7px] data-icon-only:p-2.5",
+                "h-11 gap-1 rounded-[12px] p-3 text-sm before:rounded-[11px] data-icon-only:w-11 data-icon-only:p-0",
                 "in-data-input-wrapper:gap-1.5 in-data-input-wrapper:px-4 in-data-input-wrapper:text-md in-data-input-wrapper:data-icon-only:p-3",
             ].join(" "),
             linkRoot: "gap-1 *:data-text:underline-offset-4",
         },
         lg: {
-            root: "gap-1.5 rounded-lg px-4 py-2.5 text-md font-semibold before:rounded-[7px] data-icon-only:p-3",
+            root: "h-12 gap-1 rounded-[16px] p-3 text-sm before:rounded-[15px] data-icon-only:w-12 data-icon-only:p-0",
             linkRoot: "gap-1.5 *:data-text:underline-offset-4",
         },
         xl: {
-            root: "gap-1.5 rounded-lg px-4.5 py-3 text-md font-semibold before:rounded-[7px] data-icon-only:p-3.5",
+            root: "h-14 gap-1 rounded-[16px] p-3.5 text-sm before:rounded-[15px] data-icon-only:w-14 data-icon-only:p-0",
             linkRoot: "gap-1.5 *:data-text:underline-offset-4",
         },
     },
@@ -56,74 +57,66 @@ export const styles = sortCx({
     colors: {
         primary: {
             root: [
-                "bg-brand-solid text-white shadow-xs-skeuomorphic ring-1 ring-transparent ring-inset hover:bg-brand-solid_hover data-loading:bg-brand-solid_hover",
-                // Inner border gradient
-                "before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
-                // Icon styles
-                "*:data-icon:text-white/60 hover:*:data-icon:text-white/70",
+                "bg-[var(--color-button-primary-bg)] text-white shadow-[var(--shadow-button-primary)] border-none",
+                "hover:bg-[var(--color-button-primary-bg-hover)] hover:shadow-[var(--shadow-button-hover)]",
+                "data-loading:bg-[var(--color-button-primary-bg-hover)]",
+                "*:data-icon:text-white/60 hover:*:data-icon:text-white",
             ].join(" "),
         },
         secondary: {
             root: [
-                "bg-primary text-secondary shadow-xs-skeuomorphic ring-1 ring-primary ring-inset hover:bg-primary_hover hover:text-secondary_hover data-loading:bg-primary_hover",
-                // Icon styles
+                "bg-[var(--color-button-secondary-bg)] text-[var(--color-button-secondary-fg)] border border-[var(--color-button-secondary-border)] rounded-[16px]!",
+                "hover:bg-[var(--color-button-secondary-bg-hover)] hover:text-[var(--color-button-secondary-fg-hover)] hover:border-[var(--color-button-secondary-border-hover)]",
+                "data-loading:bg-[var(--color-button-secondary-bg-hover)]",
                 "*:data-icon:text-fg-quaternary hover:*:data-icon:text-fg-quaternary_hover",
             ].join(" "),
         },
         tertiary: {
             root: [
-                "text-tertiary hover:bg-primary_hover hover:text-tertiary_hover data-loading:bg-primary_hover",
-                // Icon styles
+                "text-[var(--color-button-tertiary-fg)] hover:bg-[#FAFAFA] hover:text-[var(--color-button-tertiary-fg-hover)]",
+                "data-loading:bg-[#FAFAFA]",
                 "*:data-icon:text-fg-quaternary hover:*:data-icon:text-fg-quaternary_hover",
             ].join(" "),
         },
         "link-color": {
             root: [
-                "justify-normal rounded p-0! text-brand-secondary hover:text-brand-secondary_hover",
-                // Inner text underline
-                "*:data-text:underline *:data-text:decoration-transparent hover:*:data-text:decoration-fg-brand-secondary_alt",
-                // Icon styles
-                "*:data-icon:text-fg-brand-secondary_alt hover:*:data-icon:text-fg-brand-secondary_hover",
+                "justify-normal rounded bg-transparent p-0! text-[var(--color-button-link-color-fg)] border-none shadow-none",
+                "hover:text-[var(--color-button-link-color-fg-hover)]",
+                "*:data-text:underline *:data-text:decoration-transparent hover:*:data-text:decoration-current",
+                "*:data-icon:text-[var(--color-button-link-color-fg)] hover:*:data-icon:text-[var(--color-button-link-color-fg-hover)]",
             ].join(" "),
         },
         "link-gray": {
             root: [
-                "justify-normal rounded p-0! text-tertiary hover:text-tertiary_hover",
-                // Inner text underline
-                "*:data-text:underline *:data-text:decoration-transparent hover:*:data-text:decoration-fg-quaternary",
-                // Icon styles
+                "justify-normal rounded bg-transparent p-0! text-[var(--color-button-link-gray-fg)] border-none shadow-none",
+                "hover:text-[var(--color-button-link-gray-fg-hover)]",
+                "*:data-text:underline *:data-text:decoration-transparent hover:*:data-text:decoration-current",
                 "*:data-icon:text-fg-quaternary hover:*:data-icon:text-fg-quaternary_hover",
             ].join(" "),
         },
         "primary-destructive": {
             root: [
                 "bg-error-solid text-white shadow-xs-skeuomorphic ring-1 ring-transparent outline-error ring-inset hover:bg-error-solid_hover data-loading:bg-error-solid_hover",
-                // Inner border gradient
                 "before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
-                // Icon styles
                 "*:data-icon:text-white/60 hover:*:data-icon:text-white/70",
             ].join(" "),
         },
         "secondary-destructive": {
             root: [
                 "bg-primary text-error-primary shadow-xs-skeuomorphic ring-1 ring-error_subtle outline-error ring-inset hover:bg-error-primary hover:text-error-primary_hover data-loading:bg-error-primary",
-                // Icon styles
                 "*:data-icon:text-fg-error-secondary hover:*:data-icon:text-fg-error-primary",
             ].join(" "),
         },
         "tertiary-destructive": {
             root: [
                 "text-error-primary outline-error hover:bg-error-primary hover:text-error-primary_hover data-loading:bg-error-primary",
-                // Icon styles
                 "*:data-icon:text-fg-error-secondary hover:*:data-icon:text-fg-error-primary",
             ].join(" "),
         },
         "link-destructive": {
             root: [
                 "justify-normal rounded p-0! text-error-primary outline-error hover:text-error-primary_hover",
-                // Inner text underline
                 "*:data-text:underline *:data-text:decoration-transparent *:data-text:underline-offset-2 hover:*:data-text:decoration-current",
-                // Icon styles
                 "*:data-icon:text-fg-error-secondary hover:*:data-icon:text-fg-error-primary",
             ].join(" "),
         },

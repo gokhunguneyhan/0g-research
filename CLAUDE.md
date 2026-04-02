@@ -813,3 +813,219 @@ Use background color variables to manage all fill colors for elements in your de
 | bg-success-primary      | Primary success state background color for components.                                                                                                                                        |
 | bg-success-secondary    | Secondary success state background color for components such as featured icons.                                                                                                               |
 | bg-success-solid        | Default solid (dark) success state background color for components such as featured icons and metric items.                                                                                   |
+<!-- @embed:start file="public-components/CLAUDE.md" -->
+## Project Overview
+
+This is an **Untitled UI React** component library project built with:
+
+- **React 19** with TypeScript
+- **Tailwind CSS v4.2** for styling
+- **React Aria Components** as the foundation for accessibility and behavior
+
+## Key Architecture Principles
+
+### Component Foundation
+
+- All components are built on **React Aria Components** for consistent accessibility and behavior
+- Components follow the compound component pattern with sub-components (e.g., `Select.Item`, `Select.ComboBox`)
+- TypeScript is used throughout for type safety
+
+### Import Naming Convention
+
+**CRITICAL**: All imports from `react-aria-components` must be prefixed with `Aria*` for clarity and consistency:
+
+```typescript
+// ✅ Correct
+import { Button as AriaButton, TextField as AriaTextField } from "react-aria-components";
+// ❌ Incorrect
+import { Button, TextField } from "react-aria-components";
+```
+
+This convention:
+
+- Prevents naming conflicts with custom components
+- Makes it clear when using base React Aria components
+- Maintains consistency across the entire codebase
+
+### File Naming Convention
+
+**IMPORTANT**: All files must be named in **kebab-case** for consistency:
+
+```
+✅ Correct:
+- date-picker.tsx
+- user-profile.tsx
+- api-client.ts
+- auth-context.tsx
+
+❌ Incorrect:
+- DatePicker.tsx
+- userProfile.tsx
+- apiClient.ts
+- AuthContext.tsx
+```
+
+This applies to all file types including:
+
+- Component files (.tsx, .jsx)
+- TypeScript/JavaScript files (.ts, .js)
+- Style files (.css, .scss)
+- Test files (.test.ts, .spec.tsx)
+- Configuration files (when creating new ones)
+
+## Development Commands
+
+```bash
+# Development
+npm run dev               # Start Vite development server (http://localhost:5173)
+npm run build            # Build for production (TypeScript compilation + Vite build)
+```
+
+## Project Structure
+
+### Application Architecture
+
+```
+src/
+├── components/
+│   ├── base/              # Core UI components (Button, Input, Select, etc.)
+│   ├── application/       # Complex application components
+│   ├── foundations/       # Design tokens and foundational elements
+│   ├── marketing/         # Marketing-specific components
+│   └── shared-assets/     # Reusable assets and illustrations
+├── hooks/                 # Custom React hooks
+├── pages/                 # Route components
+├── providers/             # React context providers
+├── styles/               # Global styles and theme
+├── types/                # TypeScript type definitions
+└── utils/                # Utility functions
+```
+
+### Component Patterns
+
+#### 1. Base Components
+
+Located in `components/base/`, these are the building blocks:
+
+- `Button` - All button variants with loading states
+- `Input` - Text inputs with validation and icons
+- `Select` - Dropdown selections with complex options
+- `Checkbox`, `Radio`, `Toggle` - Form controls
+- `Avatar`, `Badge`, `Tooltip` - Display components
+
+#### 2. Application Components
+
+Located in `components/application/`, these are complex UI patterns:
+
+- `DatePicker` - Calendar-based date selection
+- `Modal` - Overlay dialogs
+- `Pagination` - Data navigation
+- `Table` - Data display with sorting
+- `Tabs` - Content organization
+
+#### 3. Styling Architecture
+
+- Uses a `sortCx` utility for organized style objects
+- Follows size variants: `sm`, `md`, `lg`, `xl`
+- Color variants: `primary`, `secondary`, `tertiary`, `destructive`, etc.
+- Responsive and state-aware styling with Tailwind
+
+#### 4. Component Props Pattern
+
+```typescript
+interface CommonProps {
+    size?: "sm" | "md" | "lg";
+    isDisabled?: boolean;
+    isLoading?: boolean;
+    // ... other common props
+}
+
+interface ButtonProps extends CommonProps, HTMLButtonElement {
+    color?: "primary" | "secondary" | "tertiary";
+    iconLeading?: FC | ReactNode;
+    iconTrailing?: FC | ReactNode;
+}
+```
+
+## Styling Guidelines
+
+### Tailwind CSS v4.2
+
+- Uses the latest Tailwind CSS v4.2 features
+- Custom design tokens defined in theme configuration
+- Consist
+# 0G Design System Rules
+
+## Component Library
+- Use Untitled UI components for ALL UI elements. Do not create custom components
+  when an Untitled UI equivalent exists.
+- TIER: pro — all components and icons available.
+- Check the Untitled UI component reference above before building any UI element.
+
+## Brand
+- Primary brand color: 0G Purple (use `--color-brand-*` CSS variables)
+- All color usage MUST use semantic color classes (text-primary, bg-secondary, etc.)
+  NEVER use raw Tailwind color classes (text-gray-900, bg-blue-700).
+- Typography, spacing, and tokens come from @0g/brand package.
+- Brand colors are defined in a `@theme` block in globals.css (NOT via @import).
+
+## Typography (CRITICAL — Follow Strictly)
+- **Regola Pro** is the primary font for headings, body text, and all primary content.
+- **Geist Mono** is the secondary font for ALL supporting/subtitle text.
+- Secondary text (labels below headings, stat labels, widget subtitles, metadata,
+  supporting descriptions) MUST use the `text-secondary-mono` utility class.
+- `text-secondary-mono` applies: Geist Mono font + UPPERCASE + letter-spacing 0.05em.
+- Code blocks and data values also use Geist Mono but in normal case.
+- NEVER use Inter or system fonts — they are not part of the 0G brand.
+
+## Buttons (0G Override — DO NOT use Untitled UI defaults)
+- 5 hierarchies: Primary, Secondary, Tertiary, Link color, Link gray.
+- 4 sizes: sm (36px), md (44px), lg (48px), xl (56px).
+- Border radius: 12px for sm/md, 16px for lg/xl.
+- Font: Regola Pro Medium (500), 14px, line-height 20px.
+- Primary hover: dark bg (#0A0D12) → brand purple (#9200E1).
+- Secondary hover: white bg → light purple tint (#F4E6FF), border → brand purple.
+
+## Icons
+- Use `lucide-react` as the default icon library for general-purpose icons.
+- Use `@untitledui/icons` only when bundled with Untitled UI components.
+- Use `@untitledui-pro/icons` for 4-style icons (pro tier available).
+
+## Layout
+- App type: marketing
+- Navigation: top
+- Max content width: 1280px
+- Density: spacious
+
+## Theme
+- Dark mode: disabled
+- Default theme: light
+
+## Animations
+- Level: rich
+- Use `framer-motion` for page transitions and scroll animations.
+- Use `transition duration-100 ease-linear` for hover/state changes.
+
+## Accessibility: standard
+- All text must have sufficient color contrast (4.5:1 minimum)
+- All interactive elements must be keyboard accessible
+- All form inputs must have visible labels
+- Use semantic HTML elements (nav, main, section, article, button)
+
+## UX Psychology Guardrails (ALWAYS APPLY)
+1. **Hick's Law** — Limit visible choices to 5-7 per screen.
+2. **Fitts's Law** — Primary buttons large and prominent. Min touch: 44x44px.
+3. **Miller's Law** — Group info into chunks of 5-7 items.
+4. **Jakob's Law** — Follow established UI conventions.
+5. **Law of Proximity** — Related elements visually close.
+6. **Law of Common Region** — Group with cards, borders, or backgrounds.
+7. **Aesthetic-Usability Effect** — Polish = perceived usability.
+8. **Doherty Threshold** — All interactions respond in under 400ms.
+9. **Von Restorff Effect** — Primary CTAs visually distinct.
+10. **Peak-End Rule** — Extra effort on first/last impressions.
+11. **Goal-Gradient Effect** — Show progress for multi-step processes.
+12. **Serial Position Effect** — Important nav items first and last.
+13. **Cognitive Load** — Minimize decisions. Smart defaults everywhere.
+14. **Tesler's Law** — Hide complexity behind progressive disclosure.
+15. **Postel's Law** — Flexible input, strict output.
+16. **Zeigarnik Effect** — Visual indicators for incomplete tasks.

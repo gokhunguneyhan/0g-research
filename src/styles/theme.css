@@ -353,7 +353,7 @@
     --color-bg-warning-secondary: var(--color-yellow-100);
     --color-bg-success-primary: var(--color-green-50);
     --color-bg-success-secondary: var(--color-green-100);
-    --color-bg-brand-solid: var(--color-brand-600);
+    --color-bg-brand-solid: var(--color-brand-700);
     --color-bg-secondary-solid: var(--color-neutral-600);
     --color-bg-error-solid: var(--color-red-600);
     --color-bg-warning-solid: var(--color-yellow-600);
@@ -361,7 +361,7 @@
     --color-bg-secondary_hover: var(--color-neutral-100);
     --color-bg-primary_hover: var(--color-neutral-50);
     --color-bg-active: var(--color-neutral-50);
-    --color-bg-brand-solid_hover: var(--color-brand-700);
+    --color-bg-brand-solid_hover: var(--color-brand-800);
     --color-bg-error-primary: var(--color-red-50);
     --color-bg-brand-secondary: var(--color-brand-100);
     --color-bg-secondary: var(--color-neutral-50);

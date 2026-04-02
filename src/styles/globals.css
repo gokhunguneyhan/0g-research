@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
 @import "tailwindcss";
 @import "./theme.css";
 @import "./typography.css";
@@ -9,6 +10,156 @@
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
 @custom-variant label (& [data-label]);
 @custom-variant focus-input-within (&:has(input:focus));
+
+@theme {
+    /* 0G Purple — Brand Color Scale (exact hex from Figma) */
+    --color-brand-25:  #FBF5FF;
+    --color-brand-50:  #F4E6FF;
+    --color-brand-100: #E9CCFF;
+    --color-brand-200: #D9A3FF;
+    --color-brand-300: #C673FF;
+    --color-brand-400: #B042FF;
+    --color-brand-500: #9C1DFF;
+    --color-brand-600: #8F0AEF;
+    --color-brand-700: #9200E1;
+    --color-brand-800: #6F00AD;
+    --color-brand-900: #54007D;
+    --color-brand-950: #2F0047;
+
+    /* 0G Fonts */
+    --font-body: 'Regola Pro', system-ui, -apple-system, sans-serif;
+    --font-display: 'Regola Pro', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+    /* 0G Spacing / Radius overrides */
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+}
+
+@font-face {
+    font-family: 'Regola Pro';
+    src: url('/fonts/RegolaProLight.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Regola Pro';
+    src: url('/fonts/Regola Pro Book.woff2') format('woff2');
+    font-weight: 350;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Regola Pro';
+    src: url('/fonts/Regola Pro Book Oblique.woff2') format('woff2');
+    font-weight: 350;
+    font-style: oblique;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Regola Pro';
+    src: url('/fonts/RegolaProRegular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Regola Pro';
+    src: url('/fonts/Regola Pro Regular Oblique.woff2') format('woff2');
+    font-weight: 400;
+    font-style: oblique;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Regola Pro';
+    src: url('/fonts/RegolaProMedium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Regola Pro';
+    src: url('/fonts/Regola Pro Medium Oblique.woff2') format('woff2');
+    font-weight: 500;
+    font-style: oblique;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Regola Pro';
+    src: url('/fonts/Regola Pro Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Regola Pro';
+    src: url('/fonts/Regola Pro Bold Oblique.woff2') format('woff2');
+    font-weight: 700;
+    font-style: oblique;
+    font-display: swap;
+}
+
+@utility text-secondary-mono {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+:root {
+    /* Primary button — dark default, BRAND PURPLE on hover */
+    --color-button-primary-bg: #0A0D12;
+    --color-button-primary-fg: #FFFFFF;
+    --color-button-primary-bg-hover: #9200E1;
+    --color-button-primary-fg-hover: #FFFFFF;
+    --shadow-button-primary:
+        0px 1px 2px 0px rgba(0, 0, 0, 0.10),
+        0px 4px 4px 0px rgba(0, 0, 0, 0.09),
+        0px 4px 5px 0px rgba(0, 0, 0, 0.05),
+        0px 16px 4px 0px rgba(0, 0, 0, 0.01);
+    --shadow-button-hover:
+        0px 1px 2px 0px rgba(0, 0, 0, 0.20),
+        0px 4px 4px 0px rgba(0, 0, 0, 0.14),
+        0px 4px 5px 0px rgba(0, 0, 0, 0.08),
+        0px 16px 4px 0px rgba(0, 0, 0, 0.02);
+
+    /* Secondary button */
+    --color-button-secondary-bg: #FFFFFF;
+    --color-button-secondary-fg: #0A0D12;
+    --color-button-secondary-fg-hover: #252B37;
+    --color-button-secondary-border: #D5D7DA;
+    --color-button-secondary-border-hover: #9200E1;
+    --color-button-secondary-bg-hover: #F4E6FF;
+
+    /* Tertiary button */
+    --color-button-tertiary-fg: #535862;
+    --color-button-tertiary-fg-hover: #414651;
+
+    /* Link color button */
+    --color-button-link-color-fg: #9200E1;
+    --color-button-link-color-fg-hover: #7A00BD;
+
+    /* Link gray button */
+    --color-button-link-gray-fg: #535862;
+    --color-button-link-gray-fg-hover: #414651;
+
+    /* Shared button tokens */
+    --button-radius-sm: 12px;
+    --button-radius-lg: 16px;
+    --button-font-weight: 500;
+    --button-font-size: 14px;
+    --button-line-height: 20px;
+    --button-gap: 4px;
+    --button-padding: 12px;
+    --button-text-padding-x: 2px;
+
+    /* Focus ring */
+    --color-button-focus-ring: #9200E1;
+}
 
 @utility scrollbar-hide {
     /* For Webkit-based browsers (Chrome, Safari and Opera) */
