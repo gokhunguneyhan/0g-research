@@ -54,14 +54,17 @@ export async function POST(request: Request) {
             return NextResponse.json({ error }, { status: 400 });
         }
 
+        // Apps Script returns a 302 redirect; follow it manually to avoid losing the POST body
         const response = await fetch(GOOGLE_SHEETS_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
+            redirect: "follow",
         });
 
-        if (!response.ok && response.type !== "opaque") {
-            console.error("Google Sheets error:", response.status);
+        if (!response.ok && response.status !== 302) {
+            const text = await response.text().catch(() => "");
+            console.error("Google Sheets error:", response.status, text);
             return NextResponse.json({ error: "Submission failed" }, { status: 500 });
         }
 
