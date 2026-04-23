@@ -11,7 +11,6 @@ import { Checkbox } from "@/components/base/checkbox/checkbox";
 import { TextArea } from "@/components/base/textarea/textarea";
 import { Button } from "@/components/base/buttons/button";
 
-const GOOGLE_SHEETS_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL";
 
 const institutionTypes = [
     { id: "university", label: "University" },
@@ -195,12 +194,12 @@ export function ApplyForm() {
             };
 
             try {
-                await fetch(GOOGLE_SHEETS_URL, {
+                const res = await fetch("/api/apply", {
                     method: "POST",
-                    mode: "no-cors",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload),
                 });
+                if (!res.ok) throw new Error("Submission failed");
                 setIsSuccess(true);
                 window.scrollTo({ top: 0, behavior: "smooth" });
             } catch {
