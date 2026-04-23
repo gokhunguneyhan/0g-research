@@ -463,7 +463,7 @@ export const HomeScreen = () => {
 
                     {/* Apply CTA — same height as Docs */}
                     <a
-                        href="#"
+                        href="/apply"
                         className={`rounded-[16px] px-[18px] py-[14px] text-md font-medium transition-all duration-300 hover:bg-[#9200E1] hover:text-white ${navOnDark ? "bg-white text-[#0A0D12]" : "bg-[#0A0D12] text-white"}`}
                     >
                         Apply for Partnership
@@ -1068,7 +1068,7 @@ export const HomeScreen = () => {
                             </p>
                             <div className="mt-8">
                                 <a
-                                    href="#"
+                                    href="/apply"
                                     className="inline-flex rounded-[16px] bg-white px-8 py-4 text-md font-medium text-[#0A0D12] transition-colors duration-200 hover:bg-[#9200E1] hover:text-white"
                                 >
                                     Apply for Partnership
@@ -1156,7 +1156,7 @@ export const HomeScreen = () => {
                     {/* CTA */}
                     <FadeIn delay={0.3} className="mt-12 text-center">
                         <a
-                            href="#"
+                            href="/apply"
                             className="inline-flex rounded-[16px] bg-[#0A0D12] px-10 py-4 text-md font-medium text-white transition-colors duration-200 hover:bg-[#9200E1]"
                         >
                             Apply for Research Partnership
