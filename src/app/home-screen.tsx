@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { ArrowRight, ArrowUpRight, ExternalLink, ChevronRight, Search, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ExternalLink, ChevronRight, ChevronDown, Search, Mail, Menu, X } from "lucide-react";
 import { Button } from "@/components/base/buttons/button";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const PixelBlast = dynamic(() => import("@/components/pixel-blast"), { ssr: false });
 const LightRays = dynamic(() => import("@/components/light-rays"), { ssr: false });
@@ -156,11 +156,43 @@ const optimizationAreas = [
     },
 ];
 
-const navLinks = [
-    { label: "Research", href: "/research" },
-    { label: "Learn", href: "#" },
-    { label: "Build", href: "#" },
-    { label: "Ecosystem", href: "#" },
+const navLinks: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
+    {
+        label: "Learn",
+        href: "#",
+        children: [
+            { label: "Product", href: "https://0g.ai/product" },
+            { label: "Blog", href: "https://0g.ai/blog" },
+            { label: "FAQs", href: "https://0g.ai/faq" },
+            { label: "Contact us", href: "https://0g.ai/contact" },
+            { label: "Whitepaper", href: "https://docs.0g.ai/whitepaper.pdf" },
+        ],
+    },
+    {
+        label: "Platform",
+        href: "#",
+        children: [
+            { label: "Docs", href: "https://docs.0g.ai/" },
+            { label: "0G hub", href: "https://hub.0g.ai" },
+            { label: "Builder Hub", href: "https://build.0g.ai/" },
+            { label: "0G storage", href: "https://storage.0g.ai/" },
+            { label: "0G Private Computer", href: "https://pc.0g.ai/" },
+        ],
+    },
+    {
+        label: "Ecosystem",
+        href: "#",
+        children: [
+            { label: "Partners", href: "https://0g.ai/partners" },
+            { label: "Accelerator", href: "https://0g.ai/accelerator" },
+            { label: "Ecosystem Growth Program", href: "https://0gfoundation.ai/" },
+            { label: "Node Sale", href: "https://0gfoundation.ai/node-sale" },
+        ],
+    },
+    {
+        label: "Research",
+        href: "/research",
+    },
 ];
 
 const footerLinks = {
@@ -178,6 +210,8 @@ const footerLinks = {
         { label: "FAQs", href: "/faq" },
         { label: "Whitepaper", href: "https://cdn.jsdelivr.net/gh/0glabs/0g-doc/static/whitepaper.pdf" },
         { label: "Node Disclaimer", href: "/disclaimer" },
+        { label: "Privacy", href: "/privacy-policy" },
+        { label: "Terms", href: "/terms-of-service" },
     ],
     ecosystem: [
         { label: "Accelerator", href: "/accelerator" },
@@ -191,10 +225,10 @@ const footerLinks = {
 const socialLinks = [
     {
         label: "Discord",
-        href: "https://discord.gg/0glabs",
+        href: "https://discord.com/invite/0glabs",
         icon: (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z" />
+            <svg width="100%" height="100%" viewBox="0 0 41 41" fill="none" aria-hidden="true">
+                <path d="M28.9614 13.3126C27.4116 12.6038 25.7657 12.0872 24.0477 11.7988C23.8314 12.1713 23.5911 12.6759 23.4229 13.0723C21.5956 12.808 19.7814 12.808 17.9793 13.0723C17.8111 12.6759 17.5588 12.1713 17.3546 11.7988C15.6246 12.0872 13.9786 12.6038 12.4396 13.3126C9.32799 17.902 8.48701 22.3832 8.90751 26.8044C10.9739 28.3062 12.9683 29.2192 14.9278 29.82C15.4083 29.1712 15.8409 28.4743 16.2133 27.7415C15.5045 27.4772 14.8317 27.1528 14.1829 26.7684C14.3511 26.6483 14.5193 26.5161 14.6755 26.3839C18.5921 28.1741 22.8343 28.1741 26.7027 26.3839C26.8709 26.5161 27.0272 26.6483 27.1954 26.7684C26.5466 27.1528 25.8738 27.4772 25.165 27.7415C25.5375 28.4743 25.9699 29.1712 26.4505 29.82C28.4087 29.2192 30.4151 28.3062 32.4707 26.8044C32.9873 21.6865 31.6526 17.2412 28.9614 13.3126ZM16.7539 24.0772C15.5765 24.0772 14.6154 23.008 14.6154 21.6985C14.6154 20.3889 15.5525 19.3197 16.7539 19.3197C17.9433 19.3197 18.9164 20.3889 18.8924 21.6985C18.8924 23.008 17.9433 24.0772 16.7539 24.0772ZM24.6484 24.0772C23.471 24.0772 22.5086 23.008 22.5086 21.6985C22.5086 20.3889 23.447 19.3197 24.6484 19.3197C25.8378 19.3197 26.8109 20.3889 26.7868 21.6985C26.7868 23.008 25.8498 24.0772 24.6484 24.0772Z" fill="currentColor" />
             </svg>
         ),
     },
@@ -202,17 +236,17 @@ const socialLinks = [
         label: "LinkedIn",
         href: "https://www.linkedin.com/company/0g-labs/",
         icon: (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            <svg width="100%" height="100%" viewBox="0 0 41 40" fill="none" aria-hidden="true">
+                <path d="M15.685 13.1952C15.6846 13.9869 15.1986 14.6993 14.4562 14.9965C13.7137 15.2937 12.863 15.1164 12.3053 14.5481C11.7475 13.9799 11.5941 13.1342 11.9173 12.4098C12.2405 11.6855 12.9758 11.2271 13.7765 11.2509C14.84 11.2824 15.6855 12.1438 15.685 13.1952ZM15.744 16.5784H11.8091V28.75H15.744V16.5784ZM21.9612 16.5784H18.0459V28.75H21.9219V22.3628C21.9219 18.8046 26.6143 18.4741 26.6143 22.3628V28.75H30.5V21.0407C30.5 15.0424 23.5549 15.266 21.9219 18.2116L21.9612 16.5784Z" fill="currentColor" />
             </svg>
         ),
     },
     {
         label: "X",
-        href: "https://x.com/0aboratory",
+        href: "https://x.com/0G_labs",
         icon: (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            <svg width="100%" height="100%" viewBox="0 0 41 40" fill="none" aria-hidden="true">
+                <path d="M26.2511 11.25L21.1976 16.8419L16.8283 11.25H10.5L18.0613 20.8211L10.8949 28.75H13.9636L19.4946 22.6322L24.3284 28.75H30.5L22.6179 18.6629L29.318 11.25H26.2511ZM25.1748 26.9731L14.0813 12.9336H15.9049L26.8741 26.9731H25.1748Z" fill="currentColor" />
             </svg>
         ),
     },
@@ -262,12 +296,10 @@ const ScrollCardsSection = () => {
         return () => window.removeEventListener("resize", update);
     }, []);
 
-    const cardWidth = 406;
-    const gap = 32;
-    const totalTrackWidth = optimizationAreas.length * cardWidth + (optimizationAreas.length - 1) * gap;
+    const isMobile = dimensions.vw < 768;
+    const totalTrackWidth = optimizationAreas.length * 406 + (optimizationAreas.length - 1) * 32;
     const leftPad = Math.max(24, (dimensions.vw - 1280) / 2 + 32);
-    const rightPad = leftPad; // end with same padding as start
-    const maxTranslate = Math.max(totalTrackWidth + leftPad + rightPad - dimensions.vw, 0);
+    const maxTranslate = Math.max(totalTrackWidth + leftPad + leftPad - dimensions.vw, 0);
 
     useEffect(() => {
         const section = sectionRef.current;
@@ -285,7 +317,6 @@ const ScrollCardsSection = () => {
             targetX = progress * maxTranslate;
         };
 
-        // Smooth lerp animation
         const animate = () => {
             currentX += (targetX - currentX) * 0.08;
             if (Math.abs(currentX - targetX) < 0.5) currentX = targetX;
@@ -308,10 +339,9 @@ const ScrollCardsSection = () => {
             id="who-we-are"
             ref={sectionRef}
             className="relative z-10 border-b border-secondary bg-primary"
-            style={{ height: `${maxTranslate + dimensions.vh}px` }}
+            style={{ height: isMobile ? "auto" : `${maxTranslate + dimensions.vh}px` }}
         >
-            <div className="sticky top-0 flex h-screen flex-col justify-center overflow-clip">
-                {/* Badge + Heading */}
+            <div className={`flex flex-col overflow-clip ${isMobile ? "py-10" : "sticky top-0 h-screen justify-center py-[5vh]"}`}>
                 <div className="mx-auto max-w-[1280px] px-6 lg:px-8">
                     <div className="inline-flex items-center gap-2 rounded-full bg-[rgba(183,95,255,0.15)] px-4 py-1.5">
                         <span className="size-2 rounded-full bg-[#b75fff]" />
@@ -319,7 +349,7 @@ const ScrollCardsSection = () => {
                             WHO WE ARE
                         </span>
                     </div>
-                    <h2 className="mt-6 max-w-[1152px] text-[48px] font-[300] leading-[1.1] tracking-[-1.44px] text-[#141413]">
+                    <h2 className="mt-4 max-w-[1152px] text-[28px] font-[300] leading-[1.3] tracking-[-0.84px] text-[#141413] md:mt-6 md:text-[48px] md:leading-[1.1] md:tracking-[-1.44px]">
                         Optimizing Model Training in{" "}
                         <span className="text-[#b75fff]">Decentralized AI Systems</span> with
                         Scalable Frameworks and Algorithms for Efficient and Collaborative{" "}
@@ -327,26 +357,24 @@ const ScrollCardsSection = () => {
                     </h2>
                 </div>
 
-                {/* Cards — 48px gap from heading, left-aligned to heading */}
                 <div
-                    className="mt-12 flex gap-[32px]"
+                    className="mt-6 flex gap-4 overflow-x-auto pb-4 md:mt-12 md:gap-[32px] md:overflow-visible md:pb-0"
                     style={{
-                        paddingLeft: `max(1.5rem, calc((100vw - 1280px) / 2 + 32px))`,
+                        paddingLeft: "max(1.5rem, calc((100vw - 1280px) / 2 + 32px))",
                         paddingRight: "1.5rem",
-                        transform: `translateX(-${translateX}px)`,
-                        willChange: "transform",
+                        ...(!isMobile ? { transform: `translateX(-${translateX}px)`, willChange: "transform" } : {}),
                     }}
                 >
                     {optimizationAreas.map((area, i) => (
                         <div
                             key={area.title}
-                            className="flex w-[406px] shrink-0 flex-col gap-[17px] rounded-[32px] bg-[#faf4fe] p-[40px]"
+                            className="flex w-[280px] shrink-0 flex-col gap-3 rounded-[24px] bg-[#faf4fe] p-6 md:w-[406px] md:gap-[17px] md:rounded-[32px] md:p-[40px]"
                         >
                             {cardIcons[i]}
-                            <h3 className="text-[32px] font-[300] leading-[1.4] tracking-[-0.96px] text-[#141413]">
+                            <h3 className="text-[22px] font-[300] leading-[1.3] tracking-[-0.66px] text-[#141413] md:text-[32px] md:leading-[1.4] md:tracking-[-0.96px]">
                                 {area.title}
                             </h3>
-                            <p className="text-[18px] font-[300] leading-[1.4] text-[#333]">
+                            <p className="text-[14px] font-[300] leading-[1.4] text-[#333] md:text-[18px]">
                                 {area.description}
                             </p>
                         </div>
@@ -360,6 +388,16 @@ const ScrollCardsSection = () => {
 export const HomeScreen = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [navOnDark, setNavOnDark] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [expandedNav, setExpandedNav] = useState<string | null>(null);
+    const [isMobileView, setIsMobileView] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobileView(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     useEffect(() => {
         const darkSections = document.querySelectorAll("[data-nav-dark]");
@@ -389,63 +427,116 @@ export const HomeScreen = () => {
     );
 
     return (
-        <div className="min-h-dvh">
+        <div className="min-h-dvh overflow-x-clip">
             {/* Gradual blur at top of page */}
             <GradualBlur position="top" strength={4} target="page" zIndex={0} divCount={10} />
 
             {/* ── Navigation — Floating glass pill, adaptive colors ── */}
-            <nav className="fixed left-0 right-0 top-0 z-[200] flex items-center px-6 pt-4 transition-colors duration-300 lg:px-8">
+            <nav className="fixed left-0 right-0 top-0 z-[200] flex items-center px-4 pt-3 transition-colors duration-300 md:px-6 md:pt-4 lg:px-8">
                 {/* Left spacer to balance the right CTA */}
                 <div className="hidden w-[200px] lg:block" />
 
-                {/* Nav pill — centered */}
+                {/* Nav pill — centered on desktop, full-width on mobile */}
                 <div
-                    className="mx-auto flex items-center gap-[60px] overflow-clip rounded-[20px] border py-3 pl-5 pr-3 transition-all duration-300"
+                    className="mx-auto flex w-full items-center justify-between gap-[60px] rounded-[16px] border py-2 pl-4 pr-2 transition-all duration-300 md:w-auto md:rounded-[20px] md:py-3 md:pl-5 md:pr-3"
                     style={{
-                        background: navOnDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0)",
+                        background: navOnDark && !mobileMenuOpen ? "rgba(255,255,255,0.08)" : mobileMenuOpen ? "rgba(245,245,245,0.95)" : "rgba(0,0,0,0)",
                         backdropFilter: "blur(25px)",
                         WebkitBackdropFilter: "blur(25px)",
-                        borderColor: navOnDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)",
+                        borderColor: navOnDark && !mobileMenuOpen ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)",
                     }}
                 >
-                    {/* 0G Logo — always black on light, white on dark */}
+                    {/* 0G Logo */}
                     <a href="/" className="shrink-0">
                         <Image
                             src="/0g-logo-nav.svg"
                             alt="0G"
                             width={64}
                             height={31}
-                            className={`transition-all duration-300 ${navOnDark ? "" : "brightness-0"}`}
+                            className={`transition-all duration-300 ${navOnDark && !mobileMenuOpen ? "" : "brightness-0"}`}
                         />
                     </a>
 
-                    {/* Nav links */}
-                    <div className="hidden items-center gap-6 md:flex">
-                        {navLinks.map((link) => (
-                            <a
-                                key={link.label}
-                                href={link.href}
-                                className={`text-md capitalize transition-colors duration-300 hover:opacity-80 ${navOnDark ? "text-white" : "text-[#0A0D12]"}`}
-                            >
-                                {link.label}
-                            </a>
-                        ))}
+                    {/* Desktop nav links */}
+                    <div className="hidden items-center gap-5 md:flex">
+                        {navLinks.map((link) =>
+                            link.children ? (
+                                <div key={link.label} className="group relative">
+                                    <button
+                                        className={`flex items-center gap-1 text-[16px] capitalize transition-colors duration-300 hover:opacity-80 ${navOnDark ? "text-white" : "text-[#0A0D12]"}`}
+                                    >
+                                        {link.label}
+                                        <ChevronDown className="size-3.5 opacity-50" />
+                                    </button>
+                                    <div className="pointer-events-none absolute left-1/2 top-full pt-4 opacity-0 transition-all duration-300 ease-out [transform:translateY(8px)] group-hover:pointer-events-auto group-hover:opacity-100 group-hover:[transform:translateY(0)]">
+                                        <div className="-translate-x-[36%] rounded-[12px] border border-[#e5e5e5] bg-white p-2 shadow-lg backdrop-blur-[50px]"
+                                            style={{ gap: "0.25rem", display: "flex", flexDirection: "column" }}
+                                        >
+                                            {link.children.map((child) => (
+                                                <a
+                                                    key={child.label}
+                                                    href={child.href}
+                                                    {...(child.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                                    className="block whitespace-nowrap rounded-[8px] px-3 py-3 text-[16px] capitalize text-[#0A0D12] transition-colors duration-300 hover:bg-[#e3c1ff]"
+                                                >
+                                                    {child.label}
+                                                </a>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <a
+                                    key={link.label}
+                                    href={link.href}
+                                    className={`text-[16px] capitalize transition-colors duration-300 hover:opacity-80 ${navOnDark ? "text-white" : "text-[#0A0D12]"}`}
+                                >
+                                    {link.label}
+                                </a>
+                            ),
+                        )}
                     </div>
 
-                    {/* Docs button */}
-                    <a
-                        href="https://docs.0g.ai/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex items-center justify-center rounded-[16px] px-[18px] py-[14px] text-md font-bold capitalize transition-all duration-300 hover:bg-[#9200E1] hover:text-white ${navOnDark ? "bg-white text-black" : "bg-[#0A0D12] text-white"}`}
-                    >
-                        Docs
-                    </a>
+                    {/* Desktop Build + Launch app buttons */}
+                    <div className="hidden items-center gap-2 md:flex">
+                        <a
+                            href="https://build.0g.ai/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`items-center justify-center rounded-[16px] border px-[18px] py-[14px] text-md font-medium capitalize transition-all duration-300 hover:border-[#b75fff] hover:bg-[#f3e6fe] hover:text-[#0A0D12] ${navOnDark ? "border-white/20 bg-transparent text-white hover:border-[#b75fff] hover:bg-[#f3e6fe] hover:text-[#0A0D12]" : "border-[rgba(0,0,0,0.08)] bg-transparent text-[#0A0D12]"}`}
+                        >
+                            Build
+                        </a>
+                        <a
+                            href="https://app.0g.ai/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`items-center justify-center rounded-[16px] px-[18px] py-[14px] text-md font-medium capitalize transition-all duration-300 hover:bg-[#9200E1] hover:text-white ${navOnDark ? "bg-white text-[#0A0D12]" : "bg-[#0A0D12] text-white"}`}
+                        >
+                            Launch app
+                        </a>
+                    </div>
+
+                    {/* Mobile: Apply CTA + Hamburger */}
+                    <div className="flex items-center gap-2 md:hidden">
+                        <a
+                            href="/apply"
+                            className="rounded-[10px] bg-[#0A0D12] px-3 py-1.5 text-sm font-medium text-white transition-all duration-100 hover:bg-[#9200E1]"
+                        >
+                            Apply
+                        </a>
+                        <button
+                            onClick={() => { setMobileMenuOpen(!mobileMenuOpen); setExpandedNav(null); }}
+                            className="flex size-9 items-center justify-center rounded-[10px] text-[#0A0D12] transition-all duration-100 hover:bg-black/5"
+                            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                        >
+                            {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+                        </button>
+                    </div>
                 </div>
 
-                {/* Right side: Bell + Apply CTA */}
+                {/* Right side: Bell + Apply CTA (desktop) */}
                 <div className="hidden items-center gap-3 lg:flex">
-                    {/* Bell icon — same glass style as nav pill */}
                     <button
                         className={`flex size-[48px] items-center justify-center rounded-[16px] border transition-all duration-300 hover:opacity-80 ${navOnDark ? "border-white/10 text-white" : "border-[rgba(0,0,0,0.08)] text-[#0A0D12]"}`}
                         style={{
@@ -460,8 +551,6 @@ export const HomeScreen = () => {
                             <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                         </svg>
                     </button>
-
-                    {/* Apply CTA — same height as Docs */}
                     <a
                         href="/apply"
                         className={`rounded-[16px] px-[18px] py-[14px] text-md font-medium transition-all duration-300 hover:bg-[#9200E1] hover:text-white ${navOnDark ? "bg-white text-[#0A0D12]" : "bg-[#0A0D12] text-white"}`}
@@ -471,9 +560,108 @@ export const HomeScreen = () => {
                 </div>
             </nav>
 
+            {/* ── Mobile Menu Overlay ── */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="fixed inset-0 z-[199] bg-white px-6 pt-20 pb-8 md:hidden"
+                    >
+                        <div className="flex h-full flex-col gap-2 overflow-y-auto pt-4">
+                            {navLinks.map((group, i) => (
+                                <motion.div
+                                    key={group.label}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.2, delay: 0.05 * i, ease: "easeOut" }}
+                                >
+                                    {group.children ? (
+                                        <>
+                                            <button
+                                                onClick={() => setExpandedNav(expandedNav === group.label ? null : group.label)}
+                                                className="flex w-full items-center justify-between py-2 text-[28px] font-[300] leading-tight text-[#0A0D12]"
+                                            >
+                                                {group.label}
+                                                <ChevronDown className={`size-6 text-[#999] transition-transform duration-200 ${expandedNav === group.label ? "rotate-180" : ""}`} />
+                                            </button>
+                                            <AnimatePresence>
+                                                {expandedNav === group.label && (
+                                                    <motion.div
+                                                        initial={{ height: 0, opacity: 0 }}
+                                                        animate={{ height: "auto", opacity: 1 }}
+                                                        exit={{ height: 0, opacity: 0 }}
+                                                        transition={{ duration: 0.2, ease: "easeOut" }}
+                                                        className="overflow-hidden"
+                                                    >
+                                                        <div className="flex flex-col gap-3 pb-3 pl-1 pt-1">
+                                                            {group.children.map((child) => (
+                                                                <a
+                                                                    key={child.label}
+                                                                    href={child.href}
+                                                                    {...(child.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                                                    onClick={() => setMobileMenuOpen(false)}
+                                                                    className="text-[20px] font-[300] text-[#555] transition-colors duration-100 hover:text-[#0A0D12]"
+                                                                >
+                                                                    {child.label}
+                                                                </a>
+                                                            ))}
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </>
+                                    ) : (
+                                        <a
+                                            href={group.href}
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="block py-2 text-[28px] font-[300] leading-tight text-[#0A0D12]"
+                                        >
+                                            {group.label}
+                                        </a>
+                                    )}
+                                </motion.div>
+                            ))}
+
+                            <motion.div
+                                className="mt-4 flex flex-col gap-4 border-t border-[rgba(0,0,0,0.08)] pt-6"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.2, delay: 0.05 * navLinks.length, ease: "easeOut" }}
+                            >
+                                <div className="flex items-center gap-3">
+                                    {socialLinks.map((s) => (
+                                        <a
+                                            key={s.label}
+                                            href={s.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex size-[48px] items-center justify-center rounded-[14px] border border-[rgba(0,0,0,0.08)] text-[#0A0D12] transition-colors duration-100 hover:bg-black/5"
+                                            aria-label={s.label}
+                                        >
+                                            {s.icon}
+                                        </a>
+                                    ))}
+                                </div>
+                                <a
+                                    href="https://app.0g.ai/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex w-fit items-center justify-center rounded-[14px] bg-[#0A0D12] px-5 py-3 text-[16px] font-medium text-white transition-all duration-100 hover:bg-[#9200E1]"
+                                >
+                                    Launch app
+                                </a>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* ── Hero (Two-Column like Anthropic) ── */}
             <section className="relative z-10 border-b border-secondary bg-primary">
-                <div className="mx-auto max-w-[1280px] px-6 pt-28 pb-20 lg:px-8 lg:pt-36 lg:pb-28">
+                <div className="mx-auto max-w-[1280px] px-6 pt-24 pb-8 lg:px-8 lg:pt-32 lg:pb-12">
                     <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
                         <FadeIn>
                             <p className="text-secondary-mono text-xs text-tertiary">
@@ -518,7 +706,7 @@ export const HomeScreen = () => {
 
             {/* ── Model Alignment — Two-column layout ── */}
             <section className="relative z-10 border-b border-secondary bg-primary">
-                <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-8 lg:py-28">
+                <div className="mx-auto max-w-[1280px] px-6 py-8 lg:px-8 lg:py-12">
                     <div className="grid gap-16 lg:grid-cols-2">
                         {/* Left column — Heading + Image */}
                         <FadeIn className="lg:sticky lg:top-28 lg:self-start">
@@ -607,8 +795,8 @@ export const HomeScreen = () => {
             </section>
 
             {/* ── Featured Articles (Large hero + cards like Anthropic) ── */}
-            <section className="relative z-10 border-b border-secondary bg-primary">
-                <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-8 lg:py-28">
+            <section className="relative z-10 overflow-hidden border-b border-secondary bg-primary">
+                <div className="mx-auto max-w-[1280px] px-6 py-8 lg:px-8 lg:py-12">
                     <FadeIn>
                         <p className="text-secondary-mono text-xs text-tertiary">Latest</p>
                         <h2 className="mt-3 text-[48px] font-[300] leading-[1.1] tracking-[-1.44px] text-primary">
@@ -618,14 +806,14 @@ export const HomeScreen = () => {
 
                     <div className="mt-20 grid gap-16 lg:grid-cols-2">
                         {/* Large featured card */}
-                        <FadeIn className="group">
+                        <FadeIn className="group min-w-0">
                             <a href={featuredArticles[0].link} className="block">
-                                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-secondary">
-                                    <Image
+                                <div className="relative overflow-hidden rounded-2xl bg-secondary">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
                                         src={featuredArticles[0].image}
                                         alt={featuredArticles[0].title}
-                                        fill
-                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                        className="block h-auto max-w-full transition-transform duration-500 group-hover:scale-105"
                                     />
                                 </div>
                                 <div className="mt-5 pr-[36px]">
@@ -653,7 +841,7 @@ export const HomeScreen = () => {
                                         href={article.link}
                                         className="group flex gap-6 border-b border-secondary pb-10 last:border-0 last:pb-0"
                                     >
-                                        <div className="relative aspect-square w-[160px] shrink-0 overflow-hidden rounded-xl bg-secondary">
+                                        <div className="relative aspect-square w-[100px] shrink-0 overflow-hidden rounded-xl bg-secondary md:w-[160px]">
                                             <Image
                                                 src={article.image}
                                                 alt={article.title}
@@ -661,7 +849,7 @@ export const HomeScreen = () => {
                                                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                                             />
                                         </div>
-                                        <div className="flex flex-col pr-[48px]">
+                                        <div className="flex min-w-0 flex-col pr-0 md:pr-[48px]">
                                             <span className="text-secondary-mono text-xs text-quaternary">
                                                 {article.date}
                                             </span>
@@ -808,7 +996,7 @@ export const HomeScreen = () => {
             {/* ── BACKUP: Publications Table (original Anthropic-style list) ── */}
             {/* To restore, uncomment this section and comment out the Papers section above */}
             {/* <section className="border-b border-secondary">
-                <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-8 lg:py-28">
+                <div className="mx-auto max-w-[1280px] px-6 py-8 lg:px-8 lg:py-12">
                     <FadeIn>
                         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                             <div>
@@ -841,7 +1029,7 @@ export const HomeScreen = () => {
 
             {/* ── Multi-Agent Technology — Two-column layout ── */}
             <section className="relative z-10 border-b border-secondary bg-primary">
-                <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-8 lg:py-28">
+                <div className="mx-auto max-w-[1280px] px-6 py-8 lg:px-8 lg:py-12">
                     <div className="grid gap-16 lg:grid-cols-2">
                         {/* Left column — Heading + Description + Image */}
                         <FadeIn className="lg:sticky lg:top-28 lg:self-start">
@@ -913,7 +1101,7 @@ export const HomeScreen = () => {
 
             {/* ── Research Partners ── */}
             <section className="relative z-10 bg-primary">
-                <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-8 lg:py-28">
+                <div className="mx-auto max-w-[1280px] px-6 py-8 lg:px-8 lg:py-12">
                     <FadeIn className="text-center">
                         <h2 className="text-[48px] font-[300] leading-[1.1] tracking-[-1.44px] text-primary">
                             Collaborating with World-Leading Institutions
@@ -947,23 +1135,24 @@ export const HomeScreen = () => {
 
             {/* ── Build on ØG — Dark section with 3 cards + CTA ── */}
             <section data-nav-dark className="relative z-10 overflow-hidden bg-black">
-                {/* Purple gradient accents — behind rays */}
-                <div className="pointer-events-none absolute -right-40 top-0 z-0 size-[600px] rounded-full bg-brand-700/15 blur-[120px]" />
-                <div className="pointer-events-none absolute -left-40 bottom-0 z-0 size-[400px] rounded-full bg-brand-700/10 blur-[100px]" />
-                {/* Light rays background — above gradients */}
-                <div className="absolute inset-0 z-[1]">
+                {/* Light rays background */}
+                <div className="absolute inset-0 z-0">
+
                     <LightRays
-                        rayLength={2.4}
-                        lightSpread={0.8}
-                        saturation={0.3}
+                        rayLength={isMobileView ? 4 : 2.4}
+                        lightSpread={isMobileView ? 2.5 : 0.8}
+                        saturation={isMobileView ? 0.5 : 0.3}
                         mouseInfluence={0}
-                        fadeDistance={1.5}
+                        fadeDistance={isMobileView ? 3 : 1.5}
                         raysSpeed={0.8}
                         noiseAmount={0.22}
                     />
                 </div>
+                {/* Purple gradient accents — above rays, desktop only */}
+                <div className="pointer-events-none absolute -right-40 top-0 z-[1] hidden size-[600px] rounded-full bg-brand-700/15 blur-[120px] md:block" />
+                <div className="pointer-events-none absolute -left-40 bottom-0 z-[1] hidden size-[400px] rounded-full bg-brand-700/10 blur-[100px] md:block" />
 
-                <div className="relative z-[2] mx-auto max-w-[1280px] px-6 py-20 lg:px-8 lg:py-28">
+                <div className="relative z-[2] mx-auto max-w-[1280px] px-6 py-8 lg:px-8 lg:py-12">
                     {/* Header */}
                     <FadeIn className="text-center">
                         <div className="mx-auto inline-flex items-center gap-2 rounded-full bg-[rgba(183,95,255,0.15)] px-4 py-1.5">
@@ -1035,7 +1224,7 @@ export const HomeScreen = () => {
                             },
                         ].map((card) => (
                             <FadeIn key={card.title}>
-                                <div className="flex h-full flex-col rounded-[20px] border border-white/10 bg-white/5 p-8 backdrop-blur-sm">
+                                <div className="flex h-full flex-col rounded-[20px] border border-white/10 bg-white/[0.12] p-8 backdrop-blur-sm md:bg-white/5">
                                     <div className="flex size-14 items-center justify-center rounded-[16px] bg-[rgba(183,95,255,0.15)]">
                                         {card.icon}
                                     </div>
@@ -1081,7 +1270,7 @@ export const HomeScreen = () => {
 
             {/* ── Apply for Research Partnership ── */}
             <section className="relative z-10 bg-primary">
-                <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-8 lg:py-28">
+                <div className="mx-auto max-w-[1280px] px-6 py-8 lg:px-8 lg:py-12">
                     {/* Header */}
                     <FadeIn className="text-center">
                         <div className="mx-auto inline-flex items-center gap-2 rounded-full bg-[rgba(183,95,255,0.15)] px-4 py-1.5">
@@ -1166,14 +1355,14 @@ export const HomeScreen = () => {
             </section>
 
             {/* ── Footer ── */}
-            <footer className="relative z-10 overflow-hidden">
-                {/* Panda video background — covers entire footer */}
+            <footer data-nav-dark className="relative z-10 flex flex-col justify-between overflow-hidden">
+                {/* Panda video background */}
                 <video
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className="absolute inset-0 h-full w-full object-cover"
+                    className="absolute inset-0 h-full w-full object-cover object-bottom"
                 >
                     <source src="/footer-video.mp4" type="video/mp4" />
                 </video>
@@ -1181,48 +1370,47 @@ export const HomeScreen = () => {
                 <div
                     className="absolute inset-0"
                     style={{
-                        background: "linear-gradient(to bottom, rgba(173,87,210,0.7) 0%, rgba(173,87,210,0.3) 50%, rgba(173,87,210,0) 100%)",
+                        background: "linear-gradient(to bottom, rgba(173,87,210,0.85) 0%, rgba(173,87,210,0.5) 50%, rgba(173,87,210,0) 100%)",
                     }}
                 />
 
-                {/* Footer content over video */}
-                <div className="relative z-10 mx-auto max-w-[1280px] px-6 pt-16 pb-12 lg:px-8">
-                    {/* Top row: Newsletter (left) + Links + Socials (right) */}
+                {/* Footer top: Newsletter + Link columns */}
+                <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 pt-16 lg:px-8">
                     <div className="grid gap-12 lg:grid-cols-[1fr_3fr]">
-                        {/* Left: Newsletter + Copyright */}
+                        {/* Newsletter + Copyright */}
                         <div>
-                            <h3 className="text-xl font-[300] text-white">Sign up for our newsletter</h3>
-                            <form className="mt-6 flex gap-2" onSubmit={(e) => e.preventDefault()}>
+                            <h3 className="text-[1.5rem] font-[300] leading-tight text-white">Sign up for our newsletter</h3>
+                            <form className="mt-6 flex max-w-[420px] items-center rounded-[0.875rem] border border-white/20 bg-white/10 py-1 pl-5 pr-1 backdrop-blur-sm" onSubmit={(e) => e.preventDefault()}>
                                 <input
                                     type="email"
                                     placeholder="Your Email"
-                                    className="w-full max-w-[200px] rounded-[16px] border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/50 backdrop-blur-sm focus:border-white/40 focus:outline-none"
+                                    className="w-full bg-transparent text-sm text-white placeholder:text-white/50 focus:outline-none"
                                 />
                                 <button
                                     type="submit"
-                                    className="rounded-[16px] bg-white px-5 py-3 text-sm font-medium text-[#0A0D12] transition-colors duration-200 hover:bg-[#9200E1] hover:text-white"
+                                    className="shrink-0 rounded-[0.75rem] bg-white px-5 py-2.5 text-sm font-medium text-[#0A0D12] shadow-[0_2px_20px_rgba(255,255,255,0.6)] transition-colors duration-200 hover:bg-[#9200E1] hover:text-white"
                                 >
                                     Subscribe
                                 </button>
                             </form>
-                            <p className="mt-6 text-sm text-white/50">&copy; 2026 ØG. All rights reserved.</p>
+                            <p className="mt-6 hidden text-sm text-white/50 md:block">&copy; 2026 ØG. All rights reserved.</p>
                         </div>
 
-                        {/* Right: Link columns + Socials */}
-                        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                        {/* Link columns — 2-col on mobile, 4-col on lg */}
+                        <div className="grid grid-cols-[1.2fr_1fr] gap-x-6 gap-y-10 lg:grid-cols-4 lg:gap-x-8">
                             {Object.entries(footerLinks).map(([category, links]) => (
                                 <div key={category}>
-                                    <h4 className="font-mono text-xs font-medium uppercase tracking-wider text-white/80">
+                                    <h4 className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-white">
                                         {category}
                                     </h4>
-                                    <ul className="mt-4 flex flex-col gap-2.5">
+                                    <ul className="mt-4 flex flex-col gap-3">
                                         {links.map((link) => (
                                             <li key={link.label}>
                                                 <a
                                                     href={link.href}
                                                     target={link.href.startsWith("http") ? "_blank" : undefined}
                                                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                                                    className="text-sm text-white/60 transition-colors duration-200 hover:text-white"
+                                                    className="text-[0.9375rem] font-[300] text-white/60 transition-colors duration-200 hover:text-white"
                                                 >
                                                     {link.label}
                                                 </a>
@@ -1232,19 +1420,40 @@ export const HomeScreen = () => {
                                 </div>
                             ))}
 
-                            {/* Socials */}
-                            <div>
-                                <h4 className="font-mono text-xs font-medium uppercase tracking-wider text-white/80">
+                            {/* Socials — appears in grid on mobile, separate column on desktop */}
+                            <div className="lg:hidden">
+                                <h4 className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-white">
                                     Socials
                                 </h4>
-                                <div className="mt-4 flex items-center gap-3">
+                                <div className="mt-4 flex flex-wrap items-center gap-3">
                                     {socialLinks.map((social) => (
                                         <a
                                             key={social.label}
                                             href={social.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex size-10 items-center justify-center rounded-full border border-white/20 text-white/70 transition-all duration-200 hover:border-white/40 hover:text-white"
+                                            className="flex size-[48px] items-center justify-center rounded-[14px] border border-white/20 text-white transition-colors duration-100 hover:bg-white/10"
+                                            aria-label={social.label}
+                                        >
+                                            {social.icon}
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Desktop socials column */}
+                            <div className="hidden lg:block">
+                                <h4 className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-white">
+                                    Socials
+                                </h4>
+                                <div className="mt-4 flex flex-wrap items-center gap-3">
+                                    {socialLinks.map((social) => (
+                                        <a
+                                            key={social.label}
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex size-[48px] items-center justify-center rounded-[14px] border border-white/20 text-white transition-colors duration-100 hover:bg-white/10"
                                             aria-label={social.label}
                                         >
                                             {social.icon}
@@ -1254,21 +1463,21 @@ export const HomeScreen = () => {
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    {/* Bottom branding: Zero ( ØG ) Gravity */}
-                    <div className="mt-16 flex items-end justify-between">
-                        <span className="text-[80px] font-[300] leading-none text-white/80 lg:text-[120px]">Zero</span>
-                        <div className="flex items-center gap-4 pb-2">
-                            <span className="text-[40px] font-[300] text-white/60 lg:text-[60px]">(</span>
-                            <Image
-                                src="/0g-logo-nav.svg"
-                                alt="ØG"
-                                width={80}
-                                height={38}
-                            />
-                            <span className="text-[40px] font-[300] text-white/60 lg:text-[60px]">)</span>
+                {/* Footer bottom: Zero ( ØG ) Gravity */}
+                <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 pt-12 pb-8 lg:px-8 lg:pt-16 lg:pb-12">
+                    <div className="flex items-end justify-between">
+                        <span className="text-[2.5rem] font-[300] leading-none text-white sm:text-[4rem] lg:text-[7.5rem]">Zero</span>
+                        <div className="flex items-center gap-2 pb-0.5 sm:gap-4 sm:pb-2">
+                            <span className="hidden font-[300] text-white/60 sm:text-[2.5rem] md:inline lg:text-[3.75rem]">(</span>
+                            <svg className="h-auto w-[3rem] text-white sm:w-[4rem] lg:w-[6.5rem]" viewBox="0 0 104 50" fill="none" aria-hidden="true">
+                                <path d="M104 26.2362C103.344 39.4154 92.3289 49.9019 78.8372 49.9019C64.9233 49.9019 53.6436 38.7485 53.6436 24.9903C53.6436 11.2321 64.9233 0.0791016 78.8372 0.0791016C91.9013 0.0791016 102.643 9.91092 103.907 22.4994H92.4658C91.2808 16.1217 85.6298 11.2893 78.8376 11.2893C71.1845 11.2893 64.9808 17.4235 64.9808 24.9903C64.9808 32.5575 71.1845 38.6917 78.8376 38.6917C84.7128 38.6917 89.7333 35.0762 91.7493 29.9729H72.539V26.2362H104Z" fill="currentColor" />
+                                <path d="M8.29178 43.3855C18.1809 52.2457 33.4683 51.9592 43.0086 42.5264C52.8472 32.7977 52.8472 17.0249 43.0086 7.29627C33.1697 -2.43209 17.2179 -2.43209 7.37911 7.29627C-1.85849 16.4304 -2.42295 30.8925 5.68565 40.6779L13.7758 32.6786C10.0529 27.3405 10.5928 19.9723 15.3958 15.2233C20.8071 9.87253 29.5807 9.87253 34.9922 15.2233C40.4031 20.5739 40.4031 29.249 34.9922 34.5998C30.8376 38.7076 24.7016 39.6619 19.6266 37.4622L33.2105 24.0304L30.5383 21.3885L8.29178 43.3855Z" fill="currentColor" />
+                            </svg>
+                            <span className="hidden font-[300] text-white/60 sm:text-[2.5rem] md:inline lg:text-[3.75rem]">)</span>
                         </div>
-                        <span className="text-[80px] font-[300] leading-none text-white/80 lg:text-[120px]">Gravity</span>
+                        <span className="text-[2.5rem] font-[300] leading-none text-white sm:text-[4rem] lg:text-[7.5rem]">Gravity</span>
                     </div>
                 </div>
             </footer>
