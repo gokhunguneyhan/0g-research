@@ -8,7 +8,7 @@
         "start": "next start"
     },
     "dependencies": {
-        "@0g/brand": "github:gokhunguneyhan/0g-brand",
+        "@0g/brand": "git+https://github.com/gokhunguneyhan/0g-brand.git",
         "@tailwindcss/postcss": "^4.2.2",
         "@tailwindcss/typography": "^0.5.19",
         "@untitledui/file-icons": "^0.0.9",
