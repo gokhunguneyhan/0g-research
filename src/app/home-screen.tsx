@@ -191,7 +191,7 @@ const navLinks: { label: string; href: string; children?: { label: string; href:
     },
     {
         label: "Research",
-        href: "/research",
+        href: "/",
     },
 ];
 
