@@ -205,19 +205,19 @@ const footerLinks = {
         { label: "Explorer", href: "https://explorer.0g.ai/" },
     ],
     learn: [
-        { label: "Blog", href: "/blog" },
-        { label: "AMAs", href: "/ama" },
-        { label: "FAQs", href: "/faq" },
+        { label: "Blog", href: "https://0g.ai/blog" },
+        { label: "AMAs", href: "https://0g.ai/ama" },
+        { label: "FAQs", href: "https://0g.ai/faq" },
         { label: "Whitepaper", href: "https://cdn.jsdelivr.net/gh/0glabs/0g-doc/static/whitepaper.pdf" },
-        { label: "Node Disclaimer", href: "/disclaimer" },
-        { label: "Privacy", href: "/privacy-policy" },
-        { label: "Terms", href: "/terms-of-service" },
+        { label: "Node Disclaimer", href: "https://0g.ai/disclaimer" },
+        { label: "Privacy", href: "https://0g.ai/privacy-policy" },
+        { label: "Terms", href: "https://0g.ai/terms-of-service" },
     ],
     ecosystem: [
-        { label: "Accelerator", href: "/accelerator" },
-        { label: "Press", href: "/press" },
-        { label: "Contact Us", href: "/contact" },
-        { label: "Brand Kit", href: "/brandkit" },
+        { label: "Accelerator", href: "https://0g.ai/accelerator" },
+        { label: "Press", href: "https://0g.ai/press" },
+        { label: "Contact Us", href: "https://0g.ai/contact" },
+        { label: "Brand Kit", href: "https://0g.ai/brandkit" },
         { label: "Ecosystem Growth Fund", href: "https://0gfoundation.ai/" },
     ],
 };
@@ -474,7 +474,7 @@ export const HomeScreen = () => {
                     }}
                 >
                     {/* 0G Logo */}
-                    <a href="/" className="shrink-0">
+                    <a href="https://0g.ai" className="shrink-0">
                         <Image
                             src="/0g-logo-nav.svg"
                             alt="0G"
@@ -547,7 +547,7 @@ export const HomeScreen = () => {
                     {/* Mobile: Apply CTA + Hamburger */}
                     <div className="flex items-center gap-2 md:hidden">
                         <a
-                            href="/apply"
+                            href="https://0g.ai/apply"
                             className="rounded-[10px] bg-[#0A0D12] px-3 py-1.5 text-sm font-medium text-white transition-all duration-100 hover:bg-[#9200E1]"
                         >
                             Apply
@@ -579,7 +579,7 @@ export const HomeScreen = () => {
                         </svg>
                     </button>
                     <a
-                        href="/apply"
+                        href="https://0g.ai/apply"
                         className={`rounded-[16px] px-[18px] py-[14px] text-md font-medium transition-all duration-300 hover:bg-[#9200E1] hover:text-white ${navOnDark ? "bg-white text-[#0A0D12]" : "bg-[#0A0D12] text-white"}`}
                     >
                         Apply for Partnership
@@ -1284,7 +1284,7 @@ export const HomeScreen = () => {
                             </p>
                             <div className="mt-8">
                                 <a
-                                    href="/apply"
+                                    href="https://0g.ai/apply"
                                     className="inline-flex rounded-[16px] bg-white px-8 py-4 text-md font-medium text-[#0A0D12] transition-colors duration-200 hover:bg-[#9200E1] hover:text-white"
                                 >
                                     Apply for Partnership
@@ -1372,7 +1372,7 @@ export const HomeScreen = () => {
                     {/* CTA */}
                     <FadeIn delay={0.3} className="mt-12 text-center">
                         <a
-                            href="/apply"
+                            href="https://0g.ai/apply"
                             className="inline-flex rounded-[16px] bg-[#0A0D12] px-10 py-4 text-md font-medium text-white transition-colors duration-200 hover:bg-[#9200E1]"
                         >
                             Apply for Research Partnership
