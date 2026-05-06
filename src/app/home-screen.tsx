@@ -391,6 +391,33 @@ export const HomeScreen = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [expandedNav, setExpandedNav] = useState<string | null>(null);
     const [isMobileView, setIsMobileView] = useState(false);
+    const [nlEmail, setNlEmail] = useState("");
+    const [nlLoading, setNlLoading] = useState(false);
+    const [nlStatus, setNlStatus] = useState<"idle" | "success" | "error">("idle");
+
+    const handleNewsletterSubmit = async (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        if (!nlEmail.trim() || nlLoading) return;
+        setNlLoading(true);
+        setNlStatus("idle");
+        try {
+            const res = await fetch("/api/newsletter", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: nlEmail }),
+            });
+            if (res.ok) {
+                setNlStatus("success");
+                setNlEmail("");
+            } else {
+                setNlStatus("error");
+            }
+        } catch {
+            setNlStatus("error");
+        } finally {
+            setNlLoading(false);
+        }
+    };
 
     useEffect(() => {
         const checkMobile = () => setIsMobileView(window.innerWidth < 768);
@@ -1380,19 +1407,29 @@ export const HomeScreen = () => {
                         {/* Newsletter + Copyright */}
                         <div>
                             <h3 className="text-[1.5rem] font-[300] leading-tight text-white">Sign up for our newsletter</h3>
-                            <form className="mt-6 flex max-w-[420px] items-center rounded-[0.875rem] border border-white/20 bg-white/10 py-1 pl-5 pr-1 backdrop-blur-sm" onSubmit={(e) => e.preventDefault()}>
+                            <form className="mt-6 flex max-w-[420px] items-center rounded-[0.875rem] border border-white/20 bg-white/10 py-1 pl-5 pr-1 backdrop-blur-sm" onSubmit={handleNewsletterSubmit}>
                                 <input
                                     type="email"
-                                    placeholder="Your Email"
-                                    className="w-full bg-transparent text-sm text-white placeholder:text-white/50 focus:outline-none"
+                                    value={nlEmail}
+                                    onChange={(e) => setNlEmail(e.target.value)}
+                                    placeholder=""
+                                    disabled={nlLoading}
+                                    className="w-full bg-transparent text-sm text-white placeholder:text-white/50 focus:outline-none disabled:opacity-50"
                                 />
                                 <button
                                     type="submit"
-                                    className="shrink-0 rounded-[0.75rem] bg-white px-5 py-2.5 text-sm font-medium text-[#0A0D12] shadow-[0_2px_20px_rgba(255,255,255,0.6)] transition-colors duration-200 hover:bg-[#9200E1] hover:text-white"
+                                    disabled={nlLoading || !nlEmail.trim()}
+                                    className="shrink-0 rounded-[0.75rem] bg-white px-5 py-2.5 text-sm font-medium text-[#0A0D12] shadow-[0_2px_20px_rgba(255,255,255,0.6)] transition-colors duration-200 hover:bg-[#9200E1] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    Subscribe
+                                    {nlLoading ? "..." : "Subscribe"}
                                 </button>
                             </form>
+                            {nlStatus === "success" && (
+                                <p className="mt-3 text-sm text-white/70">Thanks! You&apos;re subscribed.</p>
+                            )}
+                            {nlStatus === "error" && (
+                                <p className="mt-3 text-sm text-red-300">Something went wrong. Please try again.</p>
+                            )}
                             <p className="mt-6 hidden text-sm text-white/50 md:block">&copy; 2026 ØG. All rights reserved.</p>
                         </div>
 

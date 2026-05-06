@@ -8,7 +8,8 @@
       "PowerShell(ssh-add -l 2>&1)",
       "PowerShell(ssh-keygen -l -f \"C:\\\\Users\\\\disorder\\\\.ssh\\\\id_ed25519.pub\")",
       "PowerShell(ssh-add -D 2>&1)",
-      "PowerShell(ssh-add \"C:\\\\Users\\\\disorder\\\\.ssh\\\\id_ed25519\" 2>&1)"
+      "PowerShell(ssh-add \"C:\\\\Users\\\\disorder\\\\.ssh\\\\id_ed25519\" 2>&1)",
+      "WebFetch(domain:docs.google.com)"
     ]
   }
 }
