@@ -83,39 +83,39 @@ const featuredArticles = [
 
 const publications = [
     {
-        date: "2025",
+        date: "June 23, 2025",
         venue: "FSE 2025",
         title: "dl²: Detecting Communication Deadlocks in Deep Learning Jobs",
         image: "/papers/venue-1.png",
-        link: "#",
+        link: "https://cdn.prod.website-files.com/680bf096cfee93035357a4c9/68b518045dcbd53b99359d15_dl2-fse2025.pdf",
     },
     {
-        date: "2025",
+        date: "June 25, 2025",
         venue: "FSE 2025",
         title: "Reduction Fusion for Optimized Distributed Data-Parallel Computations via Inverse Recomputation",
         image: "/papers/venue-2.png",
-        link: "#",
+        link: "https://cdn.prod.website-files.com/680bf096cfee93035357a4c9/68b51954c6bc26fb513fe1aa_reduction-fusion-fse2025.pdf",
     },
     {
-        date: "2025",
+        date: "June 26, 2025",
         venue: "ArXiv 2025",
         title: "DiLoCoX: A Low-Communication Large-Scale Training Framework for Decentralized Cluster",
         image: "/papers/venue-3.png",
-        link: "#",
+        link: "https://cdn.prod.website-files.com/680bf096cfee93035357a4c9/68b5141056d5157f362f08f1_2506.21263v1.pdf",
     },
     {
-        date: "2025",
+        date: "June 26, 2025",
         venue: "ICCV 2025",
-        title: "Mind the Cost of Scaffold: Benign Clients May Even Become Malicious",
+        title: "Backdoor Attack against Scaffold Federated Learning",
         image: "/papers/venue-4.png",
-        link: "#",
+        link: "https://cdn.prod.website-files.com/680bf096cfee93035357a4c9/68b51707a6dae8bd34258ef8_2411.16167v3.pdf",
     },
     {
         date: "2025",
         venue: "ACM 2025",
-        title: "Efficient Federated Learning with Adaptive Communication",
+        title: "CCAgent: Coordinating Collaborative Data Scaling for Operating System Agents via Web3",
         image: "/papers/venue-5.png",
-        link: "#",
+        link: "https://dl.acm.org/doi/epdf/10.1145/3746252.3761392",
     },
 ];
 
@@ -972,7 +972,7 @@ export const HomeScreen = () => {
                                             {pub.title}
                                         </h3>
                                         <p className="mt-[12px] font-mono text-sm font-medium uppercase text-white/40">
-                                            {pub.venue}
+                                            {pub.venue} · {pub.date}
                                         </p>
                                     </div>
 
