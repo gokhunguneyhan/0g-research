@@ -930,6 +930,8 @@ export const HomeScreen = () => {
                             <FadeIn key={pub.title} delay={i * 0.1}>
                                 <a
                                     href={pub.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="group relative inline-grid h-[469px] w-[300px] transition-transform duration-300 hover:scale-[1.03]"
                                     style={{ gridTemplateColumns: "max-content", gridTemplateRows: "max-content" }}
                                 >
@@ -1039,7 +1041,7 @@ export const HomeScreen = () => {
                     <div className="mt-10">
                         {filteredPublications.map((pub, i) => (
                             <FadeIn key={pub.title} delay={i * 0.05}>
-                                <a href={pub.link} className="group flex items-center justify-between border-b border-secondary py-5 transition-colors duration-200 hover:bg-secondary/50 first:border-t">
+                                <a href={pub.link} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between border-b border-secondary py-5 transition-colors duration-200 hover:bg-secondary/50 first:border-t">
                                     <div className="flex items-center gap-6">
                                         <span className="text-secondary-mono w-10 shrink-0 text-xs text-quaternary">{pub.date}</span>
                                         <span className="rounded-full border border-secondary bg-secondary px-3 py-0.5 text-xs font-medium text-secondary">{pub.venue}</span>
