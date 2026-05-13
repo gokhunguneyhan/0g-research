@@ -1384,7 +1384,7 @@ export const HomeScreen = () => {
             </section>
 
             {/* ── Footer ── */}
-            <footer data-nav-dark className="relative z-10 flex flex-col justify-between overflow-hidden">
+            <footer data-nav-dark className="relative z-10 flex h-[900px] flex-col justify-between overflow-hidden">
                 {/* Panda video background */}
                 <video
                     autoPlay
