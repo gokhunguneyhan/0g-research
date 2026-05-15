@@ -489,7 +489,7 @@ export const HomeScreen = () => {
                     </a>
 
                     {/* Desktop nav links */}
-                    <div className="hidden items-center gap-5 md:flex">
+                    <div className="hidden items-center gap-5 xl:flex">
                         {navLinks.map((link) =>
                             link.children ? (
                                 <div key={link.label} className="group relative">
@@ -530,7 +530,7 @@ export const HomeScreen = () => {
                     </div>
 
                     {/* Desktop Build + Launch app buttons */}
-                    <div className="hidden items-center gap-2 md:flex">
+                    <div className="hidden items-center gap-2 xl:flex">
                         <a
                             href="https://build.0g.ai/"
                             target="_blank"
@@ -550,7 +550,7 @@ export const HomeScreen = () => {
                     </div>
 
                     {/* Mobile: Apply CTA + Hamburger */}
-                    <div className="flex items-center gap-2 md:hidden">
+                    <div className="flex items-center gap-2 xl:hidden">
                         <a
                             href="https://research.0g.ai/apply"
                             className="rounded-[10px] bg-[#0A0D12] px-3 py-1.5 text-sm font-medium text-white transition-all duration-100 hover:bg-[#9200E1]"
@@ -568,7 +568,7 @@ export const HomeScreen = () => {
                 </div>
 
                 {/* Right side: Bell + Apply CTA (desktop) */}
-                <div className="hidden items-center gap-3 lg:flex">
+                <div className="hidden items-center gap-3 xl:flex">
                     <button
                         className={`flex size-[48px] items-center justify-center rounded-[16px] border transition-all duration-300 hover:opacity-80 ${navOnDark ? "border-white/10 text-white" : "border-[rgba(0,0,0,0.08)] text-[#0A0D12]"}`}
                         style={{
@@ -587,7 +587,7 @@ export const HomeScreen = () => {
                         href="https://research.0g.ai/apply"
                         className={`rounded-[16px] px-[18px] py-[14px] text-md font-medium transition-all duration-300 hover:bg-[#9200E1] hover:text-white ${navOnDark ? "bg-white text-[#0A0D12]" : "bg-[#0A0D12] text-white"}`}
                     >
-                        Apply for Partnership
+                        Apply
                     </a>
                 </div>
             </nav>
@@ -600,7 +600,7 @@ export const HomeScreen = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="fixed inset-0 z-[199] bg-white px-6 pt-20 pb-8 md:hidden"
+                        className="fixed inset-0 z-[199] bg-white px-6 pt-20 pb-8 xl:hidden"
                     >
                         <div className="flex h-full flex-col gap-2 overflow-y-auto pt-4">
                             {navLinks.map((group, i) => (
@@ -1022,7 +1022,7 @@ export const HomeScreen = () => {
                             href="https://research.0g.ai/apply"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="rounded-[16px]! border-none! bg-[#fefefe]! px-5! py-4! text-md! font-medium! text-[#0A0D12]! hover:bg-[#9200E1]! hover:text-white!"
+                            className="min-w-[320px]! justify-center! rounded-[16px]! border-none! bg-[#fefefe]! px-10! py-4! text-md! font-medium! text-[#0A0D12]! hover:bg-[#9200E1]! hover:text-white!"
                         >
                             Apply for Research Partnership
                         </Button>
@@ -1295,7 +1295,7 @@ export const HomeScreen = () => {
                             <div className="mt-8">
                                 <a
                                     href="https://research.0g.ai/apply"
-                                    className="inline-flex rounded-[16px] bg-white px-8 py-4 text-md font-medium text-[#0A0D12] transition-colors duration-200 hover:bg-[#9200E1] hover:text-white"
+                                    className="inline-flex min-w-[320px] items-center justify-center rounded-[16px] bg-white px-10 py-4 text-md font-medium text-[#0A0D12] transition-colors duration-200 hover:bg-[#9200E1] hover:text-white"
                                 >
                                     Apply for Partnership
                                 </a>
@@ -1383,7 +1383,7 @@ export const HomeScreen = () => {
                     <FadeIn delay={0.3} className="mt-12 text-center">
                         <a
                             href="https://research.0g.ai/apply"
-                            className="inline-flex rounded-[16px] bg-[#0A0D12] px-10 py-4 text-md font-medium text-white transition-colors duration-200 hover:bg-[#9200E1]"
+                            className="inline-flex min-w-[320px] items-center justify-center rounded-[16px] bg-[#0A0D12] px-10 py-4 text-md font-medium text-white transition-colors duration-200 hover:bg-[#9200E1]"
                         >
                             Apply for Research Partnership
                         </a>
