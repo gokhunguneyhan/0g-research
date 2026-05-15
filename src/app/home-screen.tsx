@@ -193,6 +193,10 @@ const navLinks: { label: string; href: string; children?: { label: string; href:
         label: "Research",
         href: "/",
     },
+    {
+        label: "Get ØG",
+        href: "https://get.0g.ai/",
+    },
 ];
 
 const footerLinks = {
@@ -516,6 +520,7 @@ export const HomeScreen = () => {
                                 <a
                                     key={link.label}
                                     href={link.href}
+                                    {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                                     className={`text-[16px] capitalize transition-colors duration-300 hover:opacity-80 ${navOnDark ? "text-white" : "text-[#0A0D12]"}`}
                                 >
                                     {link.label}
@@ -547,7 +552,7 @@ export const HomeScreen = () => {
                     {/* Mobile: Apply CTA + Hamburger */}
                     <div className="flex items-center gap-2 md:hidden">
                         <a
-                            href="https://0g.ai/apply"
+                            href="https://research.0g.ai/apply"
                             className="rounded-[10px] bg-[#0A0D12] px-3 py-1.5 text-sm font-medium text-white transition-all duration-100 hover:bg-[#9200E1]"
                         >
                             Apply
@@ -579,7 +584,7 @@ export const HomeScreen = () => {
                         </svg>
                     </button>
                     <a
-                        href="https://0g.ai/apply"
+                        href="https://research.0g.ai/apply"
                         className={`rounded-[16px] px-[18px] py-[14px] text-md font-medium transition-all duration-300 hover:bg-[#9200E1] hover:text-white ${navOnDark ? "bg-white text-[#0A0D12]" : "bg-[#0A0D12] text-white"}`}
                     >
                         Apply for Partnership
@@ -643,6 +648,7 @@ export const HomeScreen = () => {
                                     ) : (
                                         <a
                                             href={group.href}
+                                            {...(group.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                                             onClick={() => setMobileMenuOpen(false)}
                                             className="block py-2 text-[28px] font-[300] leading-tight text-[#0A0D12]"
                                         >
@@ -1286,7 +1292,7 @@ export const HomeScreen = () => {
                             </p>
                             <div className="mt-8">
                                 <a
-                                    href="https://0g.ai/apply"
+                                    href="https://research.0g.ai/apply"
                                     className="inline-flex rounded-[16px] bg-white px-8 py-4 text-md font-medium text-[#0A0D12] transition-colors duration-200 hover:bg-[#9200E1] hover:text-white"
                                 >
                                     Apply for Partnership
@@ -1374,7 +1380,7 @@ export const HomeScreen = () => {
                     {/* CTA */}
                     <FadeIn delay={0.3} className="mt-12 text-center">
                         <a
-                            href="https://0g.ai/apply"
+                            href="https://research.0g.ai/apply"
                             className="inline-flex rounded-[16px] bg-[#0A0D12] px-10 py-4 text-md font-medium text-white transition-colors duration-200 hover:bg-[#9200E1]"
                         >
                             Apply for Research Partnership
