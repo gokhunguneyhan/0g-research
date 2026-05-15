@@ -1013,13 +1013,15 @@ export const HomeScreen = () => {
                                 Have an innovative idea you&apos;d like us to consider?
                             </h3>
                             <p className="text-md text-white/80">
-                                We&apos;re open to fresh perspectives — share your concept or proposal with us.
+                                We&apos;re open to fresh perspectives. Share your concept or proposal with us.
                             </p>
                         </div>
                         <Button
                             size="lg"
                             color="secondary"
-                            href="#"
+                            href="https://research.0g.ai/apply"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="rounded-[16px]! border-none! bg-[#fefefe]! px-5! py-4! text-md! font-medium! text-[#0A0D12]! hover:bg-[#9200E1]! hover:text-white!"
                         >
                             Apply for Research Partnership
